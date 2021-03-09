@@ -1,0 +1,86 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace WindowsFormsApp2
+{
+    public partial class Form1 : Form
+    {
+        public Form1()
+        {
+            InitializeComponent();
+            customizeDesign();
+        }
+
+        private void customizeDesign()
+        {
+            panel3.Visible = false;
+        }
+
+        private void hideSubMenu()
+        {
+            if (panel3.Visible == true)
+                panel3.Visible = false;
+        }
+
+        private void displaySubMenu(Panel subMenu)
+        {
+            if (subMenu.Visible == false)
+            {
+                hideSubMenu();
+                subMenu.Visible = true;
+            }
+            else
+                subMenu.Visible = false;
+        
+        }
+
+        private void Button1_Click(object sender, EventArgs e)
+        {
+            displaySubMenu(panel3);
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            openChildForm(new Form3());
+            hideSubMenu();
+        }
+
+        private void Button3_Click(object sender, EventArgs e)
+        {
+            openChildForm(new Form2());
+            hideSubMenu();
+        }
+
+        private void Button4_Click(object sender, EventArgs e)
+        {
+            hideSubMenu();
+        }
+
+        private void Button5_Click(object sender, EventArgs e)
+        {
+            hideSubMenu();
+        }
+
+        public Form activeForm = null;
+        private void openChildForm(Form childForm)
+        {
+            if (activeForm != null)
+                activeForm.Close();
+            activeForm = childForm;
+            childForm.TopLevel = false;
+            childForm.FormBorderStyle = FormBorderStyle.None;
+            childForm.Dock = DockStyle.Fill;
+            panel4.Controls.Add(childForm);
+            //panel4.Tag = childForm;
+           //childForm.BringToFront();
+            childForm.Show();
+        }
+    }
+}

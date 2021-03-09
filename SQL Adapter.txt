@@ -1,0 +1,26 @@
+  private void Button1_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = GetData("Select * From Laptop");
+        }
+
+        private void Button2_Click(object sender, EventArgs e)
+        {
+            dataGridView1.DataSource = GetData("Select * From Product");
+        }
+
+        private static DataTable GetData(string sqlCommand)
+        {
+            string connectionString = @"Data Source=WIN-RICIPMHI5IE\SQLEXPRESS;Initial Catalog=computer;User ID=sa;Password=student";
+
+            SqlConnection northwindConnection = new SqlConnection(connectionString);
+
+            SqlCommand command = new SqlCommand(sqlCommand, northwindConnection);
+            SqlDataAdapter adapter = new SqlDataAdapter();
+            adapter.SelectCommand = command;
+
+            DataTable table = new DataTable();
+            table.Locale = System.Globalization.CultureInfo.InvariantCulture;
+            adapter.Fill(table);
+
+            return table;
+        }
