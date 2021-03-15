@@ -25,5 +25,4 @@
             return table;
         }
 
-ûûâ
 change 2
